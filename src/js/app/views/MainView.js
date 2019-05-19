@@ -366,7 +366,7 @@ define([
             document.querySelector('.footer .button[data-area =' + id + ']').classList.add('selected');
 
             area = document.getElementById(id);
-            index = area.offsetLeft / area.clientWidth;
+            index = Math.floor(area.offsetLeft / area.clientWidth);
             area.parentNode.style.left = (-index * 100) + '%';
         },
 
