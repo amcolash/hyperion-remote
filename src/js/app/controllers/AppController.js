@@ -358,7 +358,11 @@ define([
                         this.settings.updateServer(index, this.selectedServer);
                         this.settingsView.fillServerList(this.settings.servers);
                     }
+
+                    info.effects.sort((a, b) => a.name.localeCompare(b.name));
                     this.effects = info.effects;
+                    console.log(this.effects)
+
                     this.transform = info.transform[0];
                     this.updateView();
                     this.showStatus('Connected to ' + this.selectedServer.name);
