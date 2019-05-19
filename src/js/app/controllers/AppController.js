@@ -361,7 +361,6 @@ define([
 
                     info.effects.sort((a, b) => a.name.localeCompare(b.name));
                     this.effects = info.effects;
-                    console.log(this.effects)
 
                     this.transform = info.transform[0];
                     this.updateView();
