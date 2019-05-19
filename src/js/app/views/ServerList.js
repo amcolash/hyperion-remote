@@ -1,42 +1,6 @@
 define(['lib/stapes'], function (Stapes) {
     'use strict';
 
-    /**
-     *
-     * @param params
-     * @returns {HTMLElement}
-     */
-    function buildDom (params) {
-        var dom, label, ul, li, i, header;
-
-        dom = document.createElement('div');
-        dom.classList.add('grouplist');
-        dom.id = params.id;
-
-        header = document.createElement('div');
-        header.classList.add('header');
-        dom.appendChild(header);
-        label = document.createElement('div');
-        label.innerHTML = params.label;
-        label.classList.add('title');
-        header.appendChild(label);
-        label = document.createElement('div');
-        label.innerHTML = '&#xe804;';
-        label.classList.add('callout');
-        header.appendChild(label);
-
-        ul = document.createElement('ul');
-        dom.appendChild(ul);
-        if (params.list) {
-            for (i = 0; i < params.list.length; i++) {
-                li = createLine(params.list[i]);
-                ul.appendChild(li);
-            }
-        }
-
-        return dom;
-    }
-
     function createLine (params) {
         var dom, el, horiz, box, touch;
 
@@ -81,6 +45,42 @@ define(['lib/stapes'], function (Stapes) {
         el.classList.add('delete_icon');
         el.innerHTML = '&#xe612;';
         horiz.appendChild(el);
+
+        return dom;
+    }
+
+    /**
+     *
+     * @param params
+     * @returns {HTMLElement}
+     */
+    function buildDom (params) {
+        var dom, label, ul, li, i, header;
+
+        dom = document.createElement('div');
+        dom.classList.add('grouplist');
+        dom.id = params.id;
+
+        header = document.createElement('div');
+        header.classList.add('header');
+        dom.appendChild(header);
+        label = document.createElement('div');
+        label.innerHTML = params.label;
+        label.classList.add('title');
+        header.appendChild(label);
+        label = document.createElement('div');
+        label.innerHTML = '&#xe804;';
+        label.classList.add('callout');
+        header.appendChild(label);
+
+        ul = document.createElement('ul');
+        dom.appendChild(ul);
+        if (params.list) {
+            for (i = 0; i < params.list.length; i++) {
+                li = createLine(params.list[i]);
+                ul.appendChild(li);
+            }
+        }
 
         return dom;
     }
