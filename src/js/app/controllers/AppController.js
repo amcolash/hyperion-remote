@@ -31,9 +31,9 @@ define([
          */
         serverControl: null,
         color: {
-            r: 25,
-            g: 25,
-            b: 25
+            r: 255,
+            g: 255,
+            b: 255
         },
         effects: [],
         transform: {},
