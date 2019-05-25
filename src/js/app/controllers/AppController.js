@@ -359,7 +359,7 @@ define([
                         this.settingsView.fillServerList(this.settings.servers);
                     }
 
-                    info.effects.sort(function(a, b) { a.name.localeCompare(b.name); });
+                    info.effects.sort(function(a, b) { return a.name.localeCompare(b.name); });
                     this.effects = info.effects;
 
                     this.transform = info.transform[0];
