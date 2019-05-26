@@ -160,7 +160,7 @@ define([
         fillList: function (transform) {
             var dom, group, els, i, slider;
 
-            if (!transform) {
+            if (!transform || !transform.gamma) {
                 document.querySelector('#transform .info').classList.remove('hidden');
                 return;
             }

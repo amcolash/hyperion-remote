@@ -98,7 +98,7 @@ html, body {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 400%;
+    width: 500%;
     display: flex;
     display: -webkit-flex;
     -webkit-transition: left 0.5s ease-in-out;
@@ -518,7 +518,7 @@ li.selected {
     background-color: rgba(100, 100, 100, 0.5);
 }
 
-#effects li {
+#effects li, #admin li {
     height: 40px;
     line-height: 40px;
     padding-left: 20px;

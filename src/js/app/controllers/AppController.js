@@ -1,7 +1,7 @@
 /*global define */
 define([
-    'lib/stapes', 'views/MainView', 'models/Settings', 'views/SettingsView', 'views/EffectsView', 'views/TransformView', 'data/ServerControl', 'api/Socket', 'api/Network'
-], function (Stapes, MainView, Settings, SettingsView, EffectsView, TransformView, ServerControl, Socket, Network) {
+    'lib/stapes', 'lib/axios', 'views/MainView', 'models/Settings', 'views/AdminView', 'views/SettingsView', 'views/EffectsView', 'views/TransformView', 'data/ServerControl', 'api/Socket', 'api/Network'
+], function (Stapes, axios, MainView, Settings, AdminView, SettingsView, EffectsView, TransformView, ServerControl, Socket, Network) {
     'use strict';
     var network = new Network();
 
@@ -10,6 +10,10 @@ define([
          * @type MainView
          */
         mainView: null,
+        /**
+         * @type AdminView
+         */
+        adminView: null,
         /**
          * @type SettingsView
          */
@@ -37,6 +41,7 @@ define([
         },
         effects: [],
         transform: {},
+        adminCommands: [],
         selectedServer: null,
 
         /**
@@ -45,6 +50,7 @@ define([
          */
         constructor: function () {
             this.mainView = new MainView();
+            this.adminView = new AdminView();
             this.settingsView = new SettingsView();
             this.effectsView = new EffectsView();
             this.transformView = new TransformView();
@@ -320,6 +326,16 @@ define([
                     }
                 }
             }, this);
+
+            this.adminView.on({
+                'adminSelected': function (command) {
+                    const http = this.selectedServer.address.indexOf('http://' === -1) ? 'http://' : '';
+                    axios.get(http + this.selectedServer.address + ':19446' + command).catch(function(error) {
+                        console.error(error);
+                        this.showError(error);
+                    }.bind(this));
+                }
+            }, this);
         },
 
         /**
@@ -343,7 +359,18 @@ define([
                 this.serverControl.disconnect();
                 this.transformView.clear();
                 this.effectsView.clear();
+                this.adminView.clear();
             }
+
+            // Get control server info
+            const http = server.address.indexOf('http://' === -1) ? 'http://' : '';
+            axios.get(http + server.address + ':19446').then(function(response) {
+                this.adminCommands = response.data;
+                this.updateView();
+            }.bind(this)).catch(function(error) {
+                console.error(error);
+                this.showError(error);
+            }.bind(this));
 
             this.serverControl = new ServerControl(server, Socket);
             this.serverControl.on({
@@ -393,6 +420,9 @@ define([
 
             this.transformView.clear();
             this.transformView.fillList(this.transform);
+
+            this.adminView.clear();
+            this.adminView.fillList(this.adminCommands);
         },
 
         /**
