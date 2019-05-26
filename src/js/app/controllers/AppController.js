@@ -329,7 +329,7 @@ define([
 
             this.adminView.on({
                 'adminSelected': function (command) {
-                    const http = this.selectedServer.address.indexOf('http://' === -1) ? 'http://' : '';
+                    var http = this.selectedServer.address.indexOf('http://' === -1) ? 'http://' : '';
                     axios.get(http + this.selectedServer.address + ':19446' + command).catch(function(error) {
                         console.error(error);
                         this.showError(error);
@@ -363,7 +363,7 @@ define([
             }
 
             // Get control server info
-            const http = server.address.indexOf('http://' === -1) ? 'http://' : '';
+            var http = server.address.indexOf('http://' === -1) ? 'http://' : '';
             axios.get(http + server.address + ':19446').then(function(response) {
                 this.adminCommands = response.data;
                 this.updateView();
